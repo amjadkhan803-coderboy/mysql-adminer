@@ -1,0 +1,21 @@
+services:
+  adminer:
+    image: adminer
+    container_name: admin
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+
+  mysql:
+    image: mysql
+    container_name: sql
+    restart: unless-stopped
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: amjad
+      MYSQL_ROOT_PASSWORD: 123
